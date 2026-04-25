@@ -1,0 +1,108 @@
+---
+---
+<div id="cart-drawer" class="fixed inset-0 z-[60] invisible pointer-events-none transition-all duration-500">
+  <div id="cart-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-500"></div>
+  <div id="cart-panel" class="absolute right-0 top-0 h-full w-full max-w-md bg-[#1d1d1f] shadow-2xl translate-x-full transition-transform duration-500 ease-out border-l border-white/5 flex flex-col">
+    <div class="p-6 border-b border-white/5 flex justify-between items-center">
+      <h2 class="text-2xl font-bold text-white">Tu Carrito</h2>
+      <button id="close-cart" class="text-[#a1a1a6] hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div id="cart-content" class="flex-grow overflow-y-auto p-6 space-y-6">
+      <div id="empty-message" class="text-center py-20 text-[#a1a1a6]">Tu carrito está vacío.</div>
+    </div>
+    <div class="p-6 border-t border-white/5 bg-black/20">
+      <div class="flex justify-between items-center mb-6">
+        <span class="text-[#a1a1a6]">Total estimado</span>
+        <span id="cart-total" class="text-2xl font-bold text-white">$0.00</span>
+      </div>
+      <button class="w-full py-4 bg-[#2997ff] text-white rounded-2xl font-bold text-lg hover:bg-[#0077ed] transition-all">Finalizar Compra</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { cartItems, removeCartItem } from '../../lib/cartStore';
+
+  function initCart() {
+    const drawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('cart-overlay');
+    const panel = document.getElementById('cart-panel');
+    const closeBtn = document.getElementById('close-cart');
+    const cartContent = document.getElementById('cart-content');
+    const emptyMsg = document.getElementById('empty-message');
+    const cartTotal = document.getElementById('cart-total');
+
+    function toggleCart() {
+      const isVisible = drawer?.classList.contains('invisible');
+      if (isVisible) {
+        drawer?.classList.remove('invisible', 'pointer-events-none');
+        overlay?.classList.add('opacity-100');
+        panel?.classList.remove('translate-x-full');
+      } else {
+        overlay?.classList.remove('opacity-100');
+        panel?.classList.add('translate-x-full');
+        setTimeout(() => {
+          drawer?.classList.add('invisible', 'pointer-events-none');
+        }, 500);
+      }
+    }
+
+    // Remover listeners viejos para evitar duplicados si el componente persiste pero el script corre de nuevo
+    document.removeEventListener('toggle-cart', toggleCart);
+    document.addEventListener('toggle-cart', toggleCart);
+    
+    closeBtn?.addEventListener('click', toggleCart);
+    overlay?.addEventListener('click', toggleCart);
+
+    cartItems.subscribe((items) => {
+      const itemArray = Object.values(items).filter(Boolean);
+      
+      if (itemArray.length === 0) {
+        if (emptyMsg) emptyMsg.style.display = 'block';
+        if (cartContent) {
+          cartContent.querySelectorAll('.cart-item').forEach(el => el.remove());
+        }
+        if (cartTotal) cartTotal.innerText = '$0.00';
+        return;
+      }
+
+      if (emptyMsg) emptyMsg.style.display = 'none';
+      if (cartContent) {
+        cartContent.querySelectorAll('.cart-item').forEach(el => el.remove());
+        let total = 0;
+
+        itemArray.forEach((item: any) => {
+          const itemEl = document.createElement('div');
+          itemEl.className = 'cart-item flex gap-4 bg-white/5 p-4 rounded-2xl border border-white/5';
+          const priceNum = parseFloat(item.price.replace('$', '').replace(',', ''));
+          total += priceNum * item.quantity;
+
+          itemEl.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-xl bg-black" />
+            <div class="flex-grow">
+              <h4 class="text-white font-bold">${item.name}</h4>
+              <p class="text-[#a1a1a6] text-sm">${item.price} x ${item.quantity}</p>
+              <button class="remove-item text-xs text-red-400 hover:text-red-300 mt-2" data-id="${item.id}">Eliminar</button>
+            </div>
+          `;
+          cartContent.appendChild(itemEl);
+        });
+
+        if (cartTotal) cartTotal.innerText = `$${total.toLocaleString()}`;
+
+        cartContent.querySelectorAll('.remove-item').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = (e.target as HTMLElement).getAttribute('data-id');
+            if (id) removeCartItem(id);
+          });
+        });
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initCart);
+</script>

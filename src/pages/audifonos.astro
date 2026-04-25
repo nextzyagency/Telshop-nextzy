@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ui/ProductCard.astro';
+import Footer from '../components/sections/Footer.astro';
+
+const audifonos = [
+  { name: "AirPods Max", price: "$549", image: "/telshop/imagenes/accessories.png", tag: "Premium" },
+  { name: "AirPods Pro (2nd Gen)", price: "$249", image: "/telshop/imagenes/accessories.png", tag: "Más Vendido" },
+  { name: "AirPods (3rd Gen)", price: "$169", image: "/telshop/imagenes/accessories.png" },
+  { name: "AirPods (2nd Gen)", price: "$129", image: "/telshop/imagenes/accessories.png" },
+];
+
+const seoData = {
+  title: "Audífonos Apple | Telshop",
+  description: "La mejor experiencia de audio con AirPods Pro, Max y más. Sonido inmersivo y cancelación de ruido."
+};
+---
+
+<Layout {...seoData}>
+  <main class="pt-32 bg-black min-h-screen">
+    <div class="section-padding">
+      <div class="mb-16 reveal">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-gradient">Audio.</h1>
+        <p class="text-[#a1a1a6] text-xl max-w-2xl">
+          Magia para tus oídos. Cancelación de ruido activa, audio espacial y una conexión instantánea.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {audifonos.map((audio) => (
+          <ProductCard {...audio} />
+        ))}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import gsap from 'gsap';
+  const reveal = document.querySelector('.reveal');
+  gsap.from(reveal, { opacity: 0, y: 30, duration: 1, ease: 'power3.out' });
+</script>

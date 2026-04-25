@@ -1,0 +1,67 @@
+---
+const categories = [
+  {
+    name: "iPhone",
+    tagline: "El poder en tus manos.",
+    color: "from-slate-800 to-black",
+    image: "📱" // Placeholder
+  },
+  {
+    name: "AirPods",
+    tagline: "Magia para tus oídos.",
+    color: "from-blue-900 to-black",
+    image: "🎧"
+  },
+  {
+    name: "Accesorios",
+    tagline: "Protección y estilo.",
+    color: "from-zinc-800 to-black",
+    image: "🛡️"
+  }
+];
+---
+<section id="productos" class="section-padding">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {categories.map((cat) => (
+      <div class={`relative group overflow-hidden rounded-3xl aspect-[4/5] bg-gradient-to-b ${cat.color} border border-white/5`}>
+        <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
+          {cat.name === "Accesorios" ? (
+            <img src="/telshop/imagenes/accessories.png" alt={cat.name} class="w-full h-full object-cover opacity-60" />
+          ) : (
+            <div class="flex items-center justify-center h-full text-8xl">{cat.image}</div>
+          )}
+        </div>
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
+        <div class="absolute bottom-0 left-0 p-10 w-full bg-gradient-to-t from-black to-transparent">
+          <h3 class="text-3xl font-bold text-white mb-2">{cat.name}</h3>
+          <p class="text-[#a1a1a6] mb-6">{cat.tagline}</p>
+          <a href={`/telshop/${cat.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`} class="inline-flex items-center gap-2 text-white font-semibold group/link">
+            Explorar
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('#productos div', {
+    opacity: 0,
+    scale: 0.9,
+    stagger: 0.2,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '#productos',
+      start: 'top 80%',
+    }
+  });
+</script>

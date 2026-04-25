@@ -1,0 +1,54 @@
+---
+const faqs = [
+  {
+    question: "¿Los celulares son originales y tienen garantía?",
+    answer: "Sí, en Telshop solo vendemos productos 100% originales y nuevos en caja sellada, con garantía oficial del fabricante."
+  },
+  {
+    question: "¿Hacen envíos a todo el país?",
+    answer: "Realizamos envíos prioritarios a todas las provincias mediante los correos más confiables, con seguimiento en tiempo real."
+  },
+  {
+    question: "¿Qué métodos de pago aceptan para comprar celulares?",
+    answer: "Aceptamos tarjetas de crédito, débito, transferencias bancarias y pagos a través de plataformas digitales con cuotas sin interés en modelos seleccionados."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+<section id="faq" class="section-padding bg-slate-50">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-12 text-center">Preguntas Frecuentes</h2>
+    
+    <div class="space-y-4">
+      {faqs.map((faq, index) => (
+        <details class="group bg-white rounded-2xl border border-slate-100 p-6 cursor-pointer transition-all">
+          <summary class="flex justify-between items-center font-bold text-slate-900 list-none">
+            {faq.question}
+            <span class="group-open:rotate-180 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </summary>
+          <p class="mt-4 text-slate-600 leading-relaxed">
+            {faq.answer}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>

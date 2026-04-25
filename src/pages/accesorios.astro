@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ui/ProductCard.astro';
+import Footer from '../components/sections/Footer.astro';
+
+const accesorios = [
+  { name: "Funda MagSafe Silicón", price: "$49", image: "/telshop/imagenes/accessories.png" },
+  { name: "Cargador MagSafe", price: "$39", image: "/telshop/imagenes/accessories.png" },
+  { name: "Funda MagSafe Cuero", price: "$59", image: "/telshop/imagenes/accessories.png" },
+  { name: "Adaptador USB-C 20W", price: "$19", image: "/telshop/imagenes/accessories.png", tag: "Indispensable" },
+  { name: "Apple Pencil (2nd Gen)", price: "$129", image: "/telshop/imagenes/accessories.png" },
+  { name: "AirTag (Pack de 4)", price: "$99", image: "/telshop/imagenes/accessories.png" },
+];
+
+const seoData = {
+  title: "Accesorios Apple | Telshop",
+  description: "Protección y estilo para tu iPhone. Fundas MagSafe, cargadores originales y más."
+};
+---
+
+<Layout {...seoData}>
+  <main class="pt-32 bg-black min-h-screen">
+    <div class="section-padding">
+      <div class="mb-16 reveal">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-gradient">Accesorios.</h1>
+        <p class="text-[#a1a1a6] text-xl max-w-2xl">
+          El complemento perfecto para tu tecnología. Calidad premium y compatibilidad absoluta.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {accesorios.map((acc) => (
+          <ProductCard {...acc} />
+        ))}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import gsap from 'gsap';
+  const reveal = document.querySelector('.reveal');
+  gsap.from(reveal, { opacity: 0, y: 30, duration: 1, ease: 'power3.out' });
+</script>

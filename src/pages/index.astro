@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Trust from '../components/sections/Trust.astro';
+import Categories from '../components/sections/Categories.astro';
+import Service from '../components/sections/Service.astro';
+import SocialProof from '../components/sections/SocialProof.astro';
+import CTA from '../components/sections/CTA.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import Footer from '../components/sections/Footer.astro';
+
+const seoData = {
+  title: "Telshop | Expertos en iPhone y Accesorios Apple Originales",
+  description: "La tienda número uno para comprar tu próximo iPhone. AirPods, fundas de lujo y cargadores originales. Envío premium asegurado."
+};
+---
+
+<Layout {...seoData}>
+	<main class="bg-black">
+		<Hero />
+		<Trust />
+    <Categories />
+		<Service />
+		<SocialProof />
+		<CTA />
+		<FAQ />
+	</main>
+	<Footer />
+</Layout>

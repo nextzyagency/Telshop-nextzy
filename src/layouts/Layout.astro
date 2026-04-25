@@ -1,0 +1,98 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import Navbar from '../components/ui/Navbar.astro';
+import CartDrawer from '../components/ui/CartDrawer.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	canonical?: string;
+	ogImage?: string;
+	type?: string;
+}
+
+const { 
+	title, 
+	description, 
+	canonical = 'https://telshop.com.co/', 
+	ogImage = '/imagenes/og-image.jpg',
+	type = 'LocalBusiness'
+} = Astro.props;
+
+const schema = {
+	"@context": "https://schema.org",
+	"@type": type,
+	"name": "Telshop | Tienda Apple",
+	"description": description,
+	"url": canonical,
+	"telephone": "+573245781923",
+	"address": {
+		"@type": "PostalAddress",
+		"streetAddress": "Calle 96 #46-183 Local 3",
+		"addressLocality": "Barranquilla",
+		"addressRegion": "Atlántico",
+		"addressCountry": "CO"
+	}
+};
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+    <ClientRouter />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Meta Tags -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+
+		<!-- Open Graph -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+		<!-- Schema.org -->
+		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+		<!-- GSAP Scripts -->
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+	</head>
+	<body>
+    <Navbar />
+    <CartDrawer />
+		<slot />
+		<script>
+			// Registrar ScrollTrigger globalmente
+			if (typeof window !== 'undefined' && window.gsap && window.ScrollTrigger) {
+				gsap.registerPlugin(ScrollTrigger);
+			}
+
+      // Re-ejecutar scripts en navegaciones de Astro
+      document.addEventListener('astro:after-swap', () => {
+        if (window.gsap && window.ScrollTrigger) {
+          ScrollTrigger.getAll().forEach(t => t.kill());
+          ScrollTrigger.refresh();
+        }
+      });
+		</script>
+	</body>
+</html>

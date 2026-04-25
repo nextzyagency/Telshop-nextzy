@@ -1,0 +1,90 @@
+---
+const testimonials = [
+  {
+    name: "Javier Pérez",
+    role: "Entusiasta de Apple",
+    text: "He comprado todos mis equipos Apple en Telshop. La atención al detalle y la velocidad de entrega son de otro nivel. Si buscas originalidad, este es el lugar.",
+    rating: 5
+  },
+  {
+    name: "Marina Costa",
+    role: "Diseñadora Freelance",
+    text: "Buscaba fundas MagSafe originales y Telshop tiene la mejor selección. Un servicio impecable y productos auténticos.",
+    rating: 5
+  }
+];
+---
+<section class="section-padding bg-black border-y border-white/5">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal-left">
+      <h2 class="text-4xl md:text-6xl font-bold mb-8 text-gradient">La confianza de los expertos.</h2>
+      <p class="text-[#a1a1a6] text-xl mb-10 leading-relaxed">
+        Miles de usuarios han transformado su manera de trabajar y conectarse gracias a la tecnología Apple que proveemos. Nuestra reputación se basa en la autenticidad y la excelencia.
+      </p>
+      <div class="flex items-center gap-6">
+        <div class="flex -space-x-3">
+          {[1,2,3,4].map(() => (
+            <div class="w-12 h-12 rounded-full bg-slate-800 border-2 border-black"></div>
+          ))}
+        </div>
+        <div>
+          <p class="text-white font-bold">4.9/5 Estrellas</p>
+          <p class="text-sm text-[#a1a1a6]">Basado en 2k+ reseñas de Google</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-8 reveal-right">
+      {testimonials.map((t) => (
+        <div class="glass p-8 rounded-3xl relative overflow-hidden group">
+          <div class="absolute -right-4 -top-4 text-8xl text-white/5 font-serif select-none">“</div>
+          <div class="flex text-blue-400 mb-6">
+            {[...Array(t.rating)].map(() => (
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            ))}
+          </div>
+          <p class="text-[#f5f5f7] text-lg mb-6 leading-relaxed">"{t.text}"</p>
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">
+              {t.name.charAt(0)}
+            </div>
+            <div>
+              <p class="font-bold text-white">{t.name}</p>
+              <p class="text-sm text-[#a1a1a6]">{t.role}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('.reveal-left', {
+    opacity: 0,
+    y: 30,
+    duration: 1.2,
+    scrollTrigger: {
+      trigger: '.reveal-left',
+      start: 'top 85%',
+    }
+  });
+
+  gsap.from('.reveal-right', {
+    opacity: 0,
+    y: 50,
+    stagger: 0.3,
+    duration: 1.2,
+    scrollTrigger: {
+      trigger: '.reveal-right',
+      start: 'top 85%',
+    }
+  });
+</script>
