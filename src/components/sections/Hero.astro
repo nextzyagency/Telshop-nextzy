@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import heroImage from '../../assets/hero-iphone.png';
 ---
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-20">
   <!-- Ambient background glow -->
@@ -18,10 +20,10 @@
     </p>
     
     <div id="hero-cta" class="flex flex-col sm:flex-row gap-6 justify-center items-center opacity-0">
-      <a href="/telshop/iphone" class="px-10 py-4 bg-[#2997ff] text-white rounded-full font-semibold hover:bg-[#0077ed] transition-all transform hover:scale-105 shadow-xl shadow-blue-500/20">
+      <a href="/iphone" class="px-10 py-4 bg-[#2997ff] text-white rounded-full font-semibold hover:bg-[#0077ed] transition-all transform hover:scale-105 shadow-xl shadow-blue-500/20" title="Ver catálogo de iPhones">
         Ver Catálogo iPhone
       </a>
-      <a href="#mas-informacion" class="group flex items-center gap-2 text-xl font-medium text-[#2997ff] hover:underline">
+      <a href="#mas-informacion" class="group flex items-center gap-2 text-xl font-medium text-[#2997ff] hover:underline" title="Más información sobre iPhone 15 Pro">
         Más información 
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -32,12 +34,13 @@
     <!-- Visual Element: iPhone Showcase -->
     <div id="hero-image" class="mt-20 relative max-w-5xl mx-auto opacity-0">
       <div class="relative rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(41,151,255,0.15)]">
-        <img 
-          src="/telshop/imagenes/hero-iphone.png" 
+        <Image 
+          src={heroImage} 
           alt="iPhone 15 Pro Titanium" 
           class="w-full h-auto object-cover"
           loading="eager"
           fetchpriority="high"
+          title="iPhone 15 Pro Titanium"
         />
       </div>
       <!-- Decorative light beam -->

@@ -2,19 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ui/ProductCard.astro';
 import Footer from '../components/sections/Footer.astro';
+import iphoneImg from '../assets/hero-iphone.png';
 
 const iphones = [
-  { name: "iPhone 15 Pro Max", price: "$1,199", image: "/telshop/imagenes/hero-iphone.png", tag: "Nuevo" },
-  { name: "iPhone 15 Pro", price: "$999", image: "/telshop/imagenes/hero-iphone.png", tag: "Nuevo" },
-  { name: "iPhone 15 Plus", price: "$899", image: "/telshop/imagenes/hero-iphone.png" },
-  { name: "iPhone 15", price: "$799", image: "/telshop/imagenes/hero-iphone.png" },
-  { name: "iPhone 14 Pro", price: "$899", image: "/telshop/imagenes/hero-iphone.png", tag: "Oferta" },
-  { name: "iPhone 13", price: "$599", image: "/telshop/imagenes/hero-iphone.png" },
+  { name: "iPhone 15 Pro Max", price: "$1,199", image: iphoneImg, tag: "Nuevo" },
+  { name: "iPhone 15 Pro", price: "$999", image: iphoneImg, tag: "Nuevo" },
+  { name: "iPhone 15 Plus", price: "$899", image: iphoneImg },
+  { name: "iPhone 15", price: "$799", image: iphoneImg },
+  { name: "iPhone 14 Pro", price: "$899", image: iphoneImg, tag: "Oferta" },
+  { name: "iPhone 13", price: "$599", image: iphoneImg },
 ];
 
 const seoData = {
-  title: "Catálogo iPhone | Telshop",
-  description: "Explora los últimos modelos de iPhone 15 Pro, Pro Max y más. Originales con garantía oficial."
+  title: "Catálogo iPhone | Telshop - Comprar iPhone Original en Colombia",
+  description: "Explora los últimos modelos de iPhone 15 Pro, Pro Max y más. Tienda autorizada con garantía oficial y envío asegurado."
 };
 ---
 

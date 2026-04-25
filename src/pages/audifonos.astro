@@ -2,17 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ui/ProductCard.astro';
 import Footer from '../components/sections/Footer.astro';
+import audioImg from '../assets/accessories.png';
 
 const audifonos = [
-  { name: "AirPods Max", price: "$549", image: "/telshop/imagenes/accessories.png", tag: "Premium" },
-  { name: "AirPods Pro (2nd Gen)", price: "$249", image: "/telshop/imagenes/accessories.png", tag: "Más Vendido" },
-  { name: "AirPods (3rd Gen)", price: "$169", image: "/telshop/imagenes/accessories.png" },
-  { name: "AirPods (2nd Gen)", price: "$129", image: "/telshop/imagenes/accessories.png" },
+  { name: "AirPods Max", price: "$549", image: audioImg, tag: "Premium" },
+  { name: "AirPods Pro (2nd Gen)", price: "$249", image: audioImg, tag: "Más Vendido" },
+  { name: "AirPods (3rd Gen)", price: "$169", image: audioImg },
+  { name: "AirPods (2nd Gen)", price: "$129", image: audioImg },
 ];
 
 const seoData = {
-  title: "Audífonos Apple | Telshop",
-  description: "La mejor experiencia de audio con AirPods Pro, Max y más. Sonido inmersivo y cancelación de ruido."
+  title: "AirPods y Audio Apple | Telshop - Auriculares Originales",
+  description: "La mejor experiencia de audio con AirPods Pro, Max y más. Sonido inmersivo y cancelación de ruido activa con garantía oficial."
 };
 ---
 
